@@ -12,7 +12,8 @@
              d:DataContext="{d:DesignInstance Type=viewmodel:DocumentsTabViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Style="{DynamicResource CosmosUserControl}">
+             Style="{DynamicResource CosmosUserControl}"
+             KeyDown="UserControl_KeyDown">
     <DockPanel>
 
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" VerticalAlignment="Center"

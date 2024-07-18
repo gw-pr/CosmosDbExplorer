@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CosmosDbExplorer.ViewModels;
 
 namespace CosmosDbExplorer.Views
 {
@@ -23,6 +24,19 @@ namespace CosmosDbExplorer.Views
         public DocumentsTabView()
         {
             InitializeComponent();
+            this.Loaded += (s, e) => this.Focus();
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F5)
+            {
+                var viewModel = (DocumentsTabViewModel)DataContext;
+                if (viewModel.RefreshCommand.CanExecute(null))
+                {
+                    viewModel.RefreshCommand.Execute(null);
+                }
+            }
         }
     }
 }
