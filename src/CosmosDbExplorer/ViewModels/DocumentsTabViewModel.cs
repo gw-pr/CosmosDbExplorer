@@ -6,7 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using CosmosDbExplorer.Contracts.Services;
 using CosmosDbExplorer.Contracts.ViewModels;
 using CosmosDbExplorer.Core.Contracts;
@@ -18,14 +19,9 @@ using CosmosDbExplorer.Models;
 using CosmosDbExplorer.Properties;
 using CosmosDbExplorer.Services.DialogSettings;
 using CosmosDbExplorer.ViewModels.DatabaseNodes;
-
 using FluentValidation;
-
 using Microsoft.Extensions.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
-
 using Newtonsoft.Json.Linq;
-
 using Validar;
 
 namespace CosmosDbExplorer.ViewModels
@@ -88,6 +84,8 @@ namespace CosmosDbExplorer.ViewModels
 
             AccentColor = Connection.AccentColor;
 
+            RefreshCommand = new RelayCommand(OnSelectedDocumentChanged);
+
             _cosmosDocumentService = ActivatorUtilities.CreateInstance<CosmosDocumentService>(serviceProvider, Connection, nodeContext.Database, Container);
         }
 
@@ -103,6 +101,8 @@ namespace CosmosDbExplorer.ViewModels
         public ObservableCollection<CheckedItem<ICosmosDocument>> Documents { get; } = new();
 
         public ICosmosDocument? SelectedDocument { get; set; }
+
+        public ICommand RefreshCommand { get; }
 
         public async void OnSelectedDocumentChanged()
         {
